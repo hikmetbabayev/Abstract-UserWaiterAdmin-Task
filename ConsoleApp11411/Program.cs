@@ -8,12 +8,20 @@ namespace ConsoleApp11411
     {
         static void Main(string[] args)
         {
-            string[] Menu = new string[] {"1. Paytaxt Salati",  "2. Mimoxza"};
+            try
+            {
+
+            string[] Menu = new string[] {"1. Paytaxt Salati",  "2. Mimoza Salati "};
             User user1 = new Admin();
             Waiter user2 = new Waiter();
             user2.Menu = Menu;
-            user2.TakeOrder(1);
+            user2.TakeOrder(2);
             user2.OrderShow();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             
           
         }
@@ -38,7 +46,13 @@ namespace ConsoleApp11411
         class Waiter : User
         {
             public string[] Menu { get; set; }
-            ArrayList OrderList;
+            public ArrayList OrderList { get; set; }
+
+            public Waiter()
+            {
+                OrderList = new ArrayList();
+            }
+
             public void GiveMenu()
             {
                 for (int i =0; i < Menu.Length; i++)
@@ -48,8 +62,13 @@ namespace ConsoleApp11411
             }
             public void TakeOrder(int a)
             {
+                if( a > Menu.Length)
+                {
+                    throw new Exception("Sifarisin nomresi siyahida yoxdur!!!!!");
+                }
                 OrderList.Add(Menu[a - 1]);
-
+                
+               
             }
             public void OrderShow()
             {
